@@ -6,4 +6,9 @@
     <string name="register">Зарегистрироваться</string>
     <string name="login_text">Логин</string>
     <string name="password">Пароль</string>
+    <string name="name">Ваше имя</string>
+    <string name="lastname">Ваша фамилия</string>
+    <string name="not_correct_password">Неверный пароль</string>
+    <string name="password_again">Подтвердить пароль</string>
+    <string name="not_match">Пароли не совпадают</string>
 </resources>
