@@ -46,6 +46,7 @@ public class RegisterThread extends Thread {
                             .addParameter("password", body.password)
                             .addParameter("name", body.name)
                             .addParameter("lastName", body.lastname)
+                           .setCharset(StandardCharsets.UTF_8)
                             .build();
 
             HttpClient httpClient = HttpClients.createDefault();

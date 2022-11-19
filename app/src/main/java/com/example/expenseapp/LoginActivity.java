@@ -3,11 +3,13 @@ package com.example.expenseapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.expenseapp.helpers.LoginThread;
+import com.example.expenseapp.helpers.RegistrationBody;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,8 +28,13 @@ public class LoginActivity extends AppCompatActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Thread thread = new LoginThread(login.getText().toString(), password.getText().toString());
+                RegistrationBody registrationBody = new RegistrationBody(login.getText().toString(),
+                        password.getText().toString());
+                LoginThread thread = new LoginThread(registrationBody);
                 thread.start();
+                while (thread.isAlive());
+                Log.e("answer", thread.getAuth());
+
             }
         });
     }
