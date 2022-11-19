@@ -3,10 +3,14 @@ package com.example.expenseapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.expenseapp.helpers.RegisterThread;
+import com.example.expenseapp.helpers.RegistrationBody;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -36,6 +40,16 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (password.getText().toString().
                         equals(passwordAgain.getText().toString())){
                     notCorrect.setVisibility(View.INVISIBLE);
+                    RegistrationBody registrationBody = new RegistrationBody(login.getText().toString(),
+                            password.getText().toString(), name.getText().toString(),
+                            lastName.getText().toString());
+
+                    Log.e("body", registrationBody.toString());
+                    RegisterThread registerThread = new RegisterThread(registrationBody);
+                    registerThread.start();
+                    while (registerThread.isAlive());
+                    int s = registerThread.getStatus();
+                        Log.e("st", String.valueOf(s));
                 }else {
                     notCorrect.setVisibility(View.VISIBLE);
                 }

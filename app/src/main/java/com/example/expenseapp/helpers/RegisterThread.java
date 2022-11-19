@@ -1,6 +1,7 @@
 package com.example.expenseapp.helpers;
 
 import android.telecom.Call;
+import android.util.Log;
 
 import com.example.expenseapp.helpers.RegistrationBody;
 
@@ -29,23 +30,20 @@ public class RegisterThread extends Thread {
         super.run();
         try {
             //call.execute();
+            Log.e("link", Constants.url+"user/register");
           HttpUriRequest httpUriRequest1 =
-                   RequestBuilder.post(Constants.url+"/user/register")
+                   RequestBuilder.post(Constants.url+"user/register")
                             .addParameter("login", body.login)
                             .addParameter("password", body.password)
                             .addParameter("name", body.name)
                             .addParameter("lastName", body.lastname)
-                            .setCharset(StandardCharsets.UTF_8)
                             .build();
             HttpClient httpClient = HttpClients.createDefault();
             HttpResponse httpResponse = httpClient.execute(httpUriRequest1);
-            sleep(1500);
             status = httpResponse.getStatusLine().getStatusCode();
             System.out.println(status);
         } catch (IOException e) {
             System.out.println("Error!");
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

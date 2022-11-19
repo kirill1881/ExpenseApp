@@ -13,4 +13,14 @@ public class RegistrationBody
         this.name = name;
         this.lastname = lastname;
     }
+
+    @Override
+    public String toString() {
+        return "RegistrationBody{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }
