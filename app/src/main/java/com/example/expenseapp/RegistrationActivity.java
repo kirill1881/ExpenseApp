@@ -48,8 +48,11 @@ public class RegistrationActivity extends AppCompatActivity {
                     RegisterThread registerThread = new RegisterThread(registrationBody);
                     registerThread.start();
                     while (registerThread.isAlive());
-                    int s = registerThread.getStatus();
-                        Log.e("st", String.valueOf(s));
+                    String str = registerThread.getAuth();
+                    if (str.equals("true")){
+                        notCorrect.setVisibility(View.VISIBLE);
+                        notCorrect.setText("yeah");
+                    }
                 }else {
                     notCorrect.setVisibility(View.VISIBLE);
                 }
