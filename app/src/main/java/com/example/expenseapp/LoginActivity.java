@@ -2,6 +2,8 @@ package com.example.expenseapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +36,10 @@ public class LoginActivity extends AppCompatActivity {
                 thread.start();
                 while (thread.isAlive());
                 Log.e("answer", thread.getAuth());
-
+                SharedPreferences sharedPreferences = getSharedPreferences("app", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("login", registrationBody.login);
+                editor.apply();
             }
         });
     }
