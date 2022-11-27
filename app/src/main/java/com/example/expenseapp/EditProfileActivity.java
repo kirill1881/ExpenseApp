@@ -2,6 +2,8 @@ package com.example.expenseapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,9 +41,22 @@ public class EditProfileActivity extends AppCompatActivity {
                 sname = editName.getText().toString();
                 slastname = editLastName.getText().toString();
                 OtherPostThread postTh = new OtherPostThread(sname, slastname, null);
+                SharedPreferences sharedPreferences = PreferenceManager
+                        .getDefaultSharedPreferences(EditProfileActivity.this);
+                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("name", sname + " "+slastname);
+                editor.apply();
                 postTh.start();
+                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
-
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
