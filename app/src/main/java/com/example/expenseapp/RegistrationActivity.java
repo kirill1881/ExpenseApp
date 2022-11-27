@@ -122,7 +122,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
-                        url = task.getResult().toString().substring(71, 84);
+                        url = task.getResult().toString().substring(76, 89);
                     }
                 });
             }

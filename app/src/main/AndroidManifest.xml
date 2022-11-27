@@ -27,6 +27,10 @@
         <activity
             android:name=".ChoseActivity"
             android:exported="false" />
+
+        <activity android:name=".AddActivity"/>
+        <activity android:name=".EditProfileActivity"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

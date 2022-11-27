@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private StorageReference storageReference;
     private FirebaseStorage firebaseStorage;
+    private Button editProfile;
+    private Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,24 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(MainActivity.this);
+
+        add = findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                startActivity(intent);
+            }
+        });
+        editProfile = findViewById(R.id.editProfile);
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if (sharedPreferences.getAll().get("login")==null){
             Intent intent = new Intent(MainActivity.this, ChoseActivity.class);
