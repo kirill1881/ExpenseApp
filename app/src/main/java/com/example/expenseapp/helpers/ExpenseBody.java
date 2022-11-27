@@ -20,6 +20,12 @@ public class ExpenseBody {
         this.login = login;
     }
 
+    public ExpenseBody(String sum, String name, String time) {
+        this.sum = sum;
+        this.name = name;
+        this.time = time;
+    }
+
     public String getSum() {
         return sum;
     }
