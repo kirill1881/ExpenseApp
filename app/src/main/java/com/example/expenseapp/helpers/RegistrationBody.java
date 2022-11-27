@@ -6,12 +6,14 @@ public class RegistrationBody
     public String password;
     public String name;
     public String lastname;
+    public String url;
 
-    public RegistrationBody(String login, String password, String name, String lastname) {
+    public RegistrationBody(String login, String password, String name, String lastname, String url) {
         this.login = login;
         this.password = password;
         this.name = name;
         this.lastname = lastname;
+        this.url = url;
     }
 
     public RegistrationBody(String login, String password) {

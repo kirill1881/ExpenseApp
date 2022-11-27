@@ -1,8 +1,11 @@
 package com.example.expenseapp.helpers;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.telecom.Call;
 import android.util.Log;
 
+import com.example.expenseapp.MainActivity;
 import com.example.expenseapp.helpers.RegistrationBody;
 
 import org.htmlunit.org.apache.http.HttpResponse;
@@ -46,7 +49,8 @@ public class RegisterThread extends Thread {
                             .addParameter("password", body.password)
                             .addParameter("name", body.name)
                             .addParameter("lastName", body.lastname)
-                           .setCharset(StandardCharsets.UTF_8)
+                            .addParameter("url", body.url)
+                            .setCharset(StandardCharsets.UTF_8)
                             .build();
 
             HttpClient httpClient = HttpClients.createDefault();

@@ -13,6 +13,9 @@ import android.widget.EditText;
 import com.example.expenseapp.helpers.LoginThread;
 import com.example.expenseapp.helpers.RegistrationBody;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText login, password;
@@ -39,6 +42,15 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("app", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("login", registrationBody.login);
+                editor.putString("name", registrationBody.name+" "+registrationBody.lastname);
+                editor.putString("url", registrationBody.url);
+                try {
+                    JSONObject jsonObject = new JSONObject(thread.getAuth());
+                    editor.putString("id", jsonObject.get("id").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 editor.apply();
             }
         });

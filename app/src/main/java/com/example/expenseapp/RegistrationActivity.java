@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
         imageView = findViewById(R.id.image);
         name = findViewById(R.id.name);
         lastName = findViewById(R.id.lastname);
-        login  = findViewById(R.id.login);
+        login = findViewById(R.id.login);
         password = findViewById(R.id.password);
         passwordAgain = findViewById(R.id.password_again);
 
@@ -61,34 +62,37 @@ public class RegistrationActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"),
-                         PICK_IMAGE);
+                        PICK_IMAGE);
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (password.getText().toString().
-                        equals(passwordAgain.getText().toString())){
+                        equals(passwordAgain.getText().toString())) {
                     notCorrect.setVisibility(View.INVISIBLE);
                     RegistrationBody registrationBody = new RegistrationBody(login.getText().toString(),
                             password.getText().toString(), name.getText().toString(),
-                            lastName.getText().toString());
+                            lastName.getText().toString(), url);
 
                     Log.e("body", registrationBody.toString());
                     RegisterThread registerThread = new RegisterThread(registrationBody);
                     registerThread.start();
-                    while (registerThread.isAlive());
+                    while (registerThread.isAlive()) ;
                     String str = registerThread.getAuth();
-                    if (str.equals("true")){
-                        notCorrect.setVisibility(View.VISIBLE);
-                        notCorrect.setText("yeah");
-                        SharedPreferences sharedPreferences = getSharedPreferences("app", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("login", registrationBody.login);
-                        editor.apply();
-                    }
-                }else {
+
                     notCorrect.setVisibility(View.VISIBLE);
+
+                    SharedPreferences sharedPreferences = PreferenceManager
+                            .getDefaultSharedPreferences(RegistrationActivity.this);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("login", registrationBody.login);
+                    editor.putString("name", registrationBody.name + " " + registrationBody.lastname);
+                    editor.putString("url", registrationBody.url);
+                    editor.putString("id", registerThread.getAuth());
+                    editor.apply();
+                    Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
