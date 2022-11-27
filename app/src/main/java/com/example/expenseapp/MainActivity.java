@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private FirebaseStorage firebaseStorage;
     private Button editProfile;
-    private Button add;
+    private Button add, all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +32,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(MainActivity.this);
+                .getDefaultSharedPreferences(getApplicationContext());
 
         add = findViewById(R.id.add);
+        all = findViewById(R.id.all);
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AllExpensesActivity.class);
+                startActivity(intent);
+            }
+        });
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,14 +64,17 @@ public class MainActivity extends AppCompatActivity {
         if (sharedPreferences.getAll().get("login")==null){
             Intent intent = new Intent(MainActivity.this, ChoseActivity.class);
             startActivity(intent);
+        }else {
+
+            imageView = findViewById(R.id.image);
+            textView = findViewById(R.id.name);
+
+            textView.setText(sharedPreferences.getAll().get("name").toString());
+/*
+            downloadBytes(sharedPreferences.getAll().get("url").toString(), imageView);
+*/
+
         }
-
-        imageView = findViewById(R.id.image);
-        textView = findViewById(R.id.name);
-
-        textView.setText(sharedPreferences.getAll().get("name").toString());
-        downloadBytes(sharedPreferences.getAll().get("url").toString(), imageView);
-
     }
     public void downloadBytes(String url, ImageView imageView){
         firebaseStorage = FirebaseStorage.getInstance();

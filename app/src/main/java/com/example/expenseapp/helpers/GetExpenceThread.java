@@ -1,5 +1,7 @@
 package com.example.expenseapp.helpers;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,10 +27,12 @@ public class GetExpenceThread extends Thread {
     @Override
     public void run(){
         try {
-            URL url = new URL(Constants.url+"/getById/"+id);
+            Log.e("url",Constants.url+"expense/getById/"+id);
+            URL url = new URL(Constants.url+"expense/getById/"+id);
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(url.openStream())
             );
+
             JSONArray jsonArray = new JSONArray(bufferedReader.readLine());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);

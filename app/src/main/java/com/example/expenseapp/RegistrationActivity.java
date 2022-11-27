@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     notCorrect.setVisibility(View.VISIBLE);
 
                     SharedPreferences sharedPreferences = PreferenceManager
-                            .getDefaultSharedPreferences(RegistrationActivity.this);
+                            .getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("login", registrationBody.login);
                     editor.putString("name", registrationBody.name + " " + registrationBody.lastname);
